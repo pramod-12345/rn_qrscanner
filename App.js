@@ -1,112 +1,103 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React from 'react';
-import type {Node} from 'react';
+import React, { useRef } from "react";
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
-  useColorScheme,
   View,
-} from 'react-native';
+  TouchableOpacity,
+  StatusBar,
+  Platform,
+} from "react-native";
+import QRCodeScanner from "react-native-qrcode-scanner";
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const ScanQRHomescreen = () => {
+  const scannerRef = useRef(null);
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
-
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+    <QRCodeScanner
+      ref={scannerRef}
+      reactivate={() => { console.log('re') }}
+      reactivateTimeout={30}
+      onRead={() => console.log('')}
+      // topViewStyle={{ height: 100, position: "absolute", top: Platform.OS === 'ios'? 30 : 50, zIndex:999}}
+      topContent={
+        <>
+          <StatusBar backgroundColor={"#fff"} barStyle="dark-content" />
+          <View
+            style={{
+              justifyContent: "space-between",
+              flexDirection: "row",
+              width: "100%",
+              paddingHorizontal: 20,
+              marginTop: 12,
+              alignItems: "center",
+              backgroundColor: "#000",
+              height: 65,
+              zIndex: 999,
+
+            }}
+          >
+            <TouchableOpacity hitSlop={{ top: 20, bottom: 20, left: 50, right: 50 }} style={{ zIndex: 1000 }} onPress={() => { }}>
+
+              <Text style={{ color: "#fff" }}>Back</Text>
+
+            </TouchableOpacity>
+            <Text style={{ color: "#fff" }}>Scan QR</Text>
+
+          </View>
+        </>
+      }
+      cameraStyle={{
+        height: Platform.OS === 'ios' ? 690 : 750,
+        backgroundColor: "#000",
+        marginTop: 90,
+      }}
+      showMarker
+
+      bottomViewStyle={{
+        backgroundColor: "#000",
+        height: 80,
+        borderTopLeftRadius: 15,
+        borderTopRightRadius: 15,
+        position: "absolute",
+        bottom: 0,
+      }}
+      bottomContent={
+        <View>
+          <Text
+            style={{
+              color: "#D5D5D5",
+              textAlign: "center",
+              fontSize: 20,
+              fontWeight: '600',
+            }}
+          >
+            Align QR to scan
+          </Text>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      }
+    />
   );
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
+  centerText: {
+    flex: 1,
     fontSize: 18,
-    fontWeight: '400',
+    padding: 32,
+    color: "#777",
   },
-  highlight: {
-    fontWeight: '700',
+  textBold: {
+    fontWeight: "500",
+    color: "#000",
+  },
+  buttonText: {
+    fontSize: 21,
+    color: "rgb(0,122,255)",
+  },
+  buttonTouchable: {
+    padding: 16,
   },
 });
 
-export default App;
+export default ScanQRHomescreen;
