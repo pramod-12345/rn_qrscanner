@@ -1,79 +1,33 @@
 import React, { useRef } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  StatusBar,
-  Platform,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, StatusBar, Platform } from "react-native";
 import QRCodeScanner from "react-native-qrcode-scanner";
 
 const ScanQRHomescreen = () => {
   const scannerRef = useRef(null);
 
-
   return (
     <QRCodeScanner
       ref={scannerRef}
-      reactivate={() => { console.log('re') }}
+      reactivate={() => console.log('re')}
       reactivateTimeout={30}
       onRead={() => console.log('')}
-      // topViewStyle={{ height: 100, position: "absolute", top: Platform.OS === 'ios'? 30 : 50, zIndex:999}}
       topContent={
         <>
-          <StatusBar backgroundColor={"#fff"} barStyle="dark-content" />
-          <View
-            style={{
-              justifyContent: "space-between",
-              flexDirection: "row",
-              width: "100%",
-              paddingHorizontal: 20,
-              marginTop: 12,
-              alignItems: "center",
-              backgroundColor: "#000",
-              height: 65,
-              zIndex: 999,
-
-            }}
-          >
-            <TouchableOpacity hitSlop={{ top: 20, bottom: 20, left: 50, right: 50 }} style={{ zIndex: 1000 }} onPress={() => { }}>
-
-              <Text style={{ color: "#fff" }}>Back</Text>
-
+          <StatusBar backgroundColor="#fff" barStyle="dark-content" />
+          <View style={styles.topView}>
+            <TouchableOpacity hitSlop={{ top: 20, bottom: 20, left: 50, right: 50 }} style={styles.backButton} onPress={() => {}}>
+              <Text style={styles.whiteText}>Back</Text>
             </TouchableOpacity>
-            <Text style={{ color: "#fff" }}>Scan QR</Text>
-
+            <Text style={styles.whiteText}>Scan QR</Text>
           </View>
         </>
       }
-      cameraStyle={{
-        height: Platform.OS === 'ios' ? 690 : 750,
-        backgroundColor: "#000",
-        marginTop: 90,
-      }}
+      cameraStyle={styles.camera}
       showMarker
-
-      bottomViewStyle={{
-        backgroundColor: "#000",
-        height: 80,
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15,
-        position: "absolute",
-        bottom: 0,
-      }}
+      bottomViewStyle={styles.bottomView}
       bottomContent={
         <View>
-          <Text
-            style={{
-              color: "#D5D5D5",
-              textAlign: "center",
-              fontSize: 20,
-              fontWeight: '600',
-            }}
-          >
-            Align QR to scan
-          </Text>
+          <Text style={styles.grayText}>Align QR to scan</Text>
         </View>
       }
     />
@@ -81,22 +35,41 @@ const ScanQRHomescreen = () => {
 };
 
 const styles = StyleSheet.create({
-  centerText: {
-    flex: 1,
-    fontSize: 18,
-    padding: 32,
-    color: "#777",
+  topView: {
+    justifyContent: "space-between",
+    flexDirection: "row",
+    width: "100%",
+    paddingHorizontal: 20,
+    marginTop: 12,
+    alignItems: "center",
+    backgroundColor: "#000",
+    height: 65,
+    zIndex: 999,
   },
-  textBold: {
-    fontWeight: "500",
-    color: "#000",
+  backButton: {
+    zIndex: 1000,
   },
-  buttonText: {
-    fontSize: 21,
-    color: "rgb(0,122,255)",
+  whiteText: {
+    color: "#fff",
   },
-  buttonTouchable: {
-    padding: 16,
+  camera: {
+    height: Platform.OS === 'ios' ? 690 : 750,
+    backgroundColor: "#000",
+    marginTop: 90,
+  },
+  bottomView: {
+    backgroundColor: "#000",
+    height: 80,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    position: "absolute",
+    bottom: 0,
+  },
+  grayText: {
+    color: "#D5D5D5",
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: '600',
   },
 });
 
