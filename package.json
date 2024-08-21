@@ -11,11 +11,10 @@
   },
   "dependencies": {
     "deprecated-react-native-prop-types": "^5.0.0",
-    "react": "18.0.0",
+    "react": "18.2.0",
     "react-native": "0.74.3",
-    "react-native-camera": "^4.2.1",
-    "react-native-vision-camera": "^4.5.0",
-    "react-native-permissions": "^4.1.5"
+    "react-native-permissions": "^4.1.5",
+    "react-native-vision-camera": "^4.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
